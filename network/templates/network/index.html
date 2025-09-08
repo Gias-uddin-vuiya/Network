@@ -18,7 +18,7 @@
                 <hr>
                 {% for post in posts %}
                     <div class="post">
-                        <p><strong>{{ post.user.username }}</strong> <em>{{ post.timestamp }}</em></p>
+                        <p><strong><a href="{% url 'profile' post.user.username %}">{{ post.user.username }}</a></strong> <em>{{ post.timestamp }}</em></p>
                         <p>{{ post.content }}</p>
                         <i class="fa-regular fa-heart"></i> <span>0</span>
                         <hr>

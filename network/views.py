@@ -25,6 +25,12 @@ def index(request):
     })
 
 
+# user profile view
+def profile_view(request, username):
+    user = User.objects.get(username=username)
+    return render(request, "network/profile_view.html", {
+        "profile_user": user
+    })
 
 
 def login_view(request):
