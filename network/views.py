@@ -8,7 +8,18 @@ from .models import User, Post
 
 
 def index(request):
+    # handle user post submission
+    if request.method == "POST":
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(reverse("index"))
+        content = request.POST["content"]
+        if content:
+            post = Post(user=request.user, content=content)
+            post.save()
+        return HttpResponseRedirect(reverse("index"))
     return render(request, "network/index.html")
+
+
 
 
 def login_view(request):
