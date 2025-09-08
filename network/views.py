@@ -17,7 +17,12 @@ def index(request):
             post = Post(user=request.user, content=content)
             post.save()
         return HttpResponseRedirect(reverse("index"))
-    return render(request, "network/index.html")
+    
+    # display all posts
+    posts = Post.objects.all().order_by("-timestamp").all()
+    return render(request, "network/index.html", {
+        "posts": posts
+    })
 
 
 
