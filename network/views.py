@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
+from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from .models import User, Post, Followers
@@ -31,8 +32,15 @@ def profile_view(request, username):
         return HttpResponseRedirect(reverse("index"))
     
     user = User.objects.get(username=username)
+    # count followers and following
     followers_count = user.followers.count()
     following_count = user.following.count()
+    # add pagination
+    post = user.posts.all().order_by("-timestamp") # reverse chronological order
+    paginator = Paginator(post, 10)  # Show 10 posts per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
 
     # if user follows then buttion will be unfollow else follow
     is_following = Followers.objects.filter(user=user, follower=request.user).exists()
@@ -41,7 +49,8 @@ def profile_view(request, username):
         "profile_user": user,
         "followers_count": followers_count,
         "following_count": following_count,
-        "is_following": is_following
+        "is_following": is_following,
+        "page_obj": page_obj
     })
 
 def follow(request, username):
