@@ -6,3 +6,12 @@ body{
 .container{
     margin-top: 10px;
 }
+
+.ellipsis{
+    float: right;
+    cursor: pointer;
+    font-weight: 800;
+}
+.ellipsis:hover {
+    color: gray;
+}
