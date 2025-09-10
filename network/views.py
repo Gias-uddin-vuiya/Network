@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Post
+from .models import User, Post, Followers
 
 
 def index(request):
@@ -33,13 +33,36 @@ def profile_view(request, username):
     user = User.objects.get(username=username)
     followers_count = user.followers.count()
     following_count = user.following.count()
+
+    # if user follows then buttion will be unfollow else follow
+    is_following = Followers.objects.filter(user=user, follower=request.user).exists()
    
     return render(request, "network/profile_view.html", {
         "profile_user": user,
         "followers_count": followers_count,
-        "following_count": following_count
+        "following_count": following_count,
+        "is_following": is_following
     })
 
+def follow(request, username):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    
+    user_to_follow = User.objects.get(username=username)
+    if user_to_follow == request.user:
+        return HttpResponseRedirect(reverse("profile", args=[username]))
+    
+    # Check if already following
+    existing_follow = Followers.objects.filter(user=user_to_follow, follower=request.user).first()
+    if existing_follow:
+        # Unfollow
+        existing_follow.delete()
+    else:
+        # Follow
+        new_follow = Followers(user=user_to_follow, follower=request.user)
+        new_follow.save()
+    
+    return HttpResponseRedirect(reverse("profile", args=[username]))
 
 
 def login_view(request):
