@@ -27,10 +27,19 @@ def index(request):
 
 # user profile view
 def profile_view(request, username):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    
     user = User.objects.get(username=username)
+    followers_count = user.followers.count()
+    following_count = user.following.count()
+   
     return render(request, "network/profile_view.html", {
-        "profile_user": user
+        "profile_user": user,
+        "followers_count": followers_count,
+        "following_count": following_count
     })
+
 
 
 def login_view(request):
