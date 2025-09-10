@@ -16,7 +16,7 @@
             </button>
         </form>
     {% endif %}
-    <p>Followers: {{ followers_count }} | Following: {{ following_count }}</p>
+    <p>Followers: {{ followers_count }} | <a href="{% url 'following' %}">Following</a>: {{ following_count }}</p>
     
     <hr>
     <div class="container">

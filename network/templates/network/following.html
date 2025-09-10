@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'network/layout.html' %}
 
 {% block body %}
 
@@ -7,8 +7,16 @@
     <hr>
     <div class="container">
         <h3>Your Feed</h3>
-        <!-- Posts from followed users will be displayed here -->
-        <p>No posts available.</p>
+        {% for post in posts %}
+            <div class="post">
+                <p><strong><a href="{% url 'profile' post.user.username %}">{{ post.user.username }}</a></strong> <em>{{ post.timestamp }}</em></p>
+                <p>{{ post.content }}</p>
+                <i class="fa-regular fa-heart"></i> <span>0</span>
+                <hr>
+            </div>
+        {% empty %}
+            <p>No posts available from users you are following.</p>
+        {% endfor %}
     </div>
     
 {% endblock %}

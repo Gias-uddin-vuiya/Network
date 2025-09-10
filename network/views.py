@@ -64,6 +64,18 @@ def follow(request, username):
     
     return HttpResponseRedirect(reverse("profile", args=[username]))
 
+# following page
+def following(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    
+    # get users that the current user is following
+    following_users = Followers.objects.filter(follower=request.user).values_list('user', flat=True)
+    posts = Post.objects.filter(user__in=following_users).order_by('-timestamp')
+    
+    return render(request, "network/following.html", {
+        "posts": posts
+    })
 
 def login_view(request):
     if request.method == "POST":
