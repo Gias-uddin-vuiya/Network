@@ -23,16 +23,20 @@
                                 <a href="{% url 'profile' post.user.username %}">{{ post.user.username }}</a>
                             </strong> 
                             <em>{{ post.timestamp }}</em> 
-                            <span class="ellipsis"><i class="fa-solid fa-ellipsis"></i></span>
-                            <ul class="post-options">
-                                <li><a href="#">Edit</a></li>
-                                <li><a href="#">Delete</a></li>
-                            </ul>
-                        </p>
+                                <!-- Ellipsis -->
+                                <span class="ellipsis">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </span>
+                            </p>
                         <p>{{ post.content }}</p>
                         <i class="fa-regular fa-heart"></i> <span>0</span>
-                        <hr>
+                       
                     </div>
+                    <!--  Users should be able to click an “Edit” button or link on any of their own posts to edit that post. -->
+                    {% if user.username == post.user.username %}
+                        <button class="btn btn-primary edit-content-btn"  data-set="{{ post.id }}">Edit</button>
+                    {% endif %}
+                    <hr>
                 {% empty %}
                     <p>No posts available.</p>
                 {% endfor %}

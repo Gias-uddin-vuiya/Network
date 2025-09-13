@@ -19,6 +19,9 @@ def index(request):
             post.save()
         return HttpResponseRedirect(reverse("index"))
     
+    # pass the user
+    # user = User.objects.all()
+    
     # display all posts
     posts = Post.objects.all().order_by("-timestamp").all()
     paginator = Paginator(posts, 4)  # Show 10 posts per page
