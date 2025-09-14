@@ -4,6 +4,7 @@ const editContentBtn = document.querySelectorAll(".edit-content-btn")
 
 editContentBtn.forEach((btn) => {
   btn.addEventListener('click', (evt) => {
+    evt.preventDefault()
     console.log("edit button clicked");
 
     // Find the post container
@@ -19,7 +20,7 @@ editContentBtn.forEach((btn) => {
     // Replace the content with textarea
     content.replaceWith(textarea);
 
-
+    
 
     // You can add a save button after editing
     const saveBtn = document.createElement("button");
@@ -38,3 +39,6 @@ editContentBtn.forEach((btn) => {
     });
   });
 });
+
+
+

@@ -5,7 +5,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+import json
+
 from .models import User, Post, Followers
+
 
 
 def index(request):
@@ -14,13 +19,12 @@ def index(request):
         if not request.user.is_authenticated:
             return HttpResponseRedirect(reverse("index"))
         content = request.POST["content"]
+        
         if content:
             post = Post(user=request.user, content=content)
             post.save()
         return HttpResponseRedirect(reverse("index"))
     
-    # pass the user
-    # user = User.objects.all()
     
     # display all posts
     posts = Post.objects.all().order_by("-timestamp").all()
