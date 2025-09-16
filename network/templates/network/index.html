@@ -32,8 +32,12 @@
                         <i class="fa-regular fa-heart"></i> <span>0</span>
                         <!--  Users should be able to click an “Edit” button or link on any of their own posts to edit that post. -->
                         {% if user.username == post.user.username %}    
-                            <button type="submit" class="btn btn-primary edit-content-btn"  data-set="{{ post.id }}">Edit</button>   
-                        {% endif %}
+                            <!-- edit post -->
+                            <button class="btn btn-primary edit-content-btn" data-set="{{ post.id }}">
+                                Edit
+                            </button>
+                                
+                            {% endif %}
                         <hr>
                     </div>
                    

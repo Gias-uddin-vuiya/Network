@@ -25,20 +25,34 @@ editContentBtn.forEach((btn) => {
     // add save btn after click the edit btn
     const saveBtn = document.createElement("button");
     saveBtn.innerText = "Save";
+    saveBtn.type = "submit"
     saveBtn.className = "save-btn btn btn-primary";
     textarea.insertAdjacentElement("afterend", saveBtn);
 
-    saveBtn.addEventListener("click", () => {
-      const newContent = document.createElement("p");
-      newContent.className = "post-content";
-      newContent.innerText = textarea.value;
+    saveBtn.addEventListener("click", async () => {
+        const updatedText = textarea.value;
+        const postId = btn.dataset.set; // we stored post.id in data-set
 
-      // Replace textarea back with updated content
-      textarea.replaceWith(newContent);
-      saveBtn.remove();
-    });
+        const response = await fetch(`/edit-post/${postId}/`, {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({ content: updatedText }),
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          const newContent = document.createElement("p");
+          newContent.className = "post-content";
+          newContent.innerText = data.updated_content;
+
+          textarea.replaceWith(newContent);
+          saveBtn.remove();
+        } else {
+          alert(data.error || "Failed to update post.");
+        }
+      });
   });
 });
-
-
-

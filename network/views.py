@@ -12,9 +12,19 @@ import json
 from .models import User, Post, Followers
 
 def edit_post_content(request, post_id):
-    # 
-    return ''
+    if request.method == "POST":
+        post = get_object_or_404(Post, id=post_id, user=request.user)
+        new_content = request.POST.get("content")
 
+        if not new_content:
+            return JsonResponse({"success": False, "error": "Content is required"})
+
+        post.content = new_content
+        post.save()
+
+        return JsonResponse({"success": True, "updated_content": post.content})
+
+    return JsonResponse({"success": False, "error": "Invalid request"})
 
 def index(request):
     # handle user post submission
