@@ -22,7 +22,7 @@ editContentBtn.forEach((btn) => {
 
     
 
-    // You can add a save button after editing
+    // add save btn after click the edit btn
     const saveBtn = document.createElement("button");
     saveBtn.innerText = "Save";
     saveBtn.className = "save-btn btn btn-primary";

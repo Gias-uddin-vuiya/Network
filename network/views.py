@@ -11,6 +11,9 @@ import json
 
 from .models import User, Post, Followers
 
+def edit_post_content(request, post_id):
+    # 
+    return ''
 
 
 def index(request):
