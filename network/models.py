@@ -10,8 +10,13 @@ class Post(models.Model):
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
+
     def __str__(self):
         return f"{self.user.username}: {self.content[:20]}..."
+    
+    @property
+    def like_count(self):
+        return self.likes.count()
 
 class Followers(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followers")
@@ -21,17 +26,19 @@ class Followers(models.Model):
 
     class Meta:
         unique_together = ('user', 'follower')
+    
 
     def __str__(self):
         return f"{self.follower.username} follows {self.user.username}"
     
+    
 class Reaction(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reactions")
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="reactions")
-    is_like = models.BooleanField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")
+    
 
     class Meta:
         unique_together = ('user', 'post')
     
     def __str__(self):
-        return f"{self.user.username} {'liked' if self.is_like else 'unlike'} {self.post.id}"
+        return f"{self.user.username} liked post {self.post.id}"
