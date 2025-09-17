@@ -29,7 +29,12 @@
                                 </span>
                             </p>
                         <p  class="post-content">{{ post.content }}</p>
-                        <i class="fa-regular fa-heart"></i> <span>0</span>
+                        
+                        {% if user.username %}
+                            <i class="fa-regular fa-heart like-btn"></i> <span class="like-count">0</span>
+                            <i class="fa-solid fa-heart  unlike-btn"></i>
+                        {% endif %}
+                        
                         <!--  Users should be able to click an “Edit” button or link on any of their own posts to edit that post. -->
                         {% if user.username == post.user.username %}    
                             <!-- edit post -->

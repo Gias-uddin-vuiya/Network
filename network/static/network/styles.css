@@ -16,4 +16,8 @@ body{
     color: gray;
 }
 
-
+/* Design like and unlike feature */
+.like-btn:hover {
+    color: #dc0f0f;
+    cursor: pointer;
+}

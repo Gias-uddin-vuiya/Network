@@ -11,6 +11,8 @@ import json
 
 from .models import User, Post, Followers
 
+
+
 def edit_post_content(request, post_id):
     if request.method == "POST":
         post = get_object_or_404(Post, id=post_id, user=request.user)

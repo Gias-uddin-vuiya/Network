@@ -1,15 +1,15 @@
 
 const editContentBtn = document.querySelectorAll(".edit-content-btn")
-
+let likeBtn = document.querySelectorAll(".like-btn")
 
 editContentBtn.forEach((btn) => {
   btn.addEventListener('click', (evt) => {
     evt.preventDefault()
-    console.log("edit button clicked");
+    // console.log("edit button clicked");
 
     // Find the post container
     const post = evt.target.closest(".post"); 
-    console.log(post)
+    // console.log(post)
     const content = post.querySelector(".post-content");
 
     // Create textarea and set the value to current content
@@ -56,3 +56,19 @@ editContentBtn.forEach((btn) => {
       });
   });
 });
+
+
+// let defaultLike = 1;
+// let likeCount = document.querySelectorAll(".like-count")
+// // showing value
+// likeCount.innerText = defaultLike
+
+
+// likeBtn.forEach((btn) => {
+//   btn.addEventListener('click', (evt) => {
+//     evt.preventDefault()
+//     defaultLike++
+//     likeCount.innerText = defaultLike
+//     console.log('click like btn')
+//   })
+// })
