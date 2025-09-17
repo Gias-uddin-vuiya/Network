@@ -1,6 +1,6 @@
 
 const editContentBtn = document.querySelectorAll(".edit-content-btn")
-let likeBtn = document.querySelectorAll(".like-btn")
+const likeBtns = document.querySelectorAll(".like-btn")
 
 editContentBtn.forEach((btn) => {
   btn.addEventListener('click', (evt) => {
@@ -58,17 +58,38 @@ editContentBtn.forEach((btn) => {
 });
 
 
-// let defaultLike = 1;
-// let likeCount = document.querySelectorAll(".like-count")
-// // showing value
-// likeCount.innerText = defaultLike
 
 
-// likeBtn.forEach((btn) => {
-//   btn.addEventListener('click', (evt) => {
-//     evt.preventDefault()
-//     defaultLike++
-//     likeCount.innerText = defaultLike
-//     console.log('click like btn')
-//   })
-// })
+//  Fronted React System.
+likeBtns.forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    const postId = btn.closest(".like-container").dataset.postId; // get post.id
+    const countSpan = btn.closest(".like-container").querySelector(".like-count");
+
+    const response = await fetch(`/post/${postId}/like/`, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      countSpan.innerText = data.likes;
+
+      // Toggle icon style (like/unlike)
+      if (data.liked) {
+        btn.classList.remove("fa-regular");
+        btn.classList.add("fa-solid", "text-danger");
+      } else {
+        btn.classList.remove("fa-solid", "text-danger");
+        btn.classList.add("fa-regular");
+      }
+    } else {
+      alert(data.error || "Failed to update like.");
+    }
+  });
+});
+

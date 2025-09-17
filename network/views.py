@@ -2,16 +2,27 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect 
 from django.urls import reverse
 
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 import json
 
-from .models import User, Post, Followers
+from .models import User, Post, Followers, Reaction
 
 
+def toggle_like(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    like, created = Reaction.objects.get_or_create(user=request.user, post=post)
+
+    if not created:
+        like.delete()
+    
+    return JsonResponse({
+        "likes": post.like_count,
+        "liked": created  # True if just liked, False if unliked
+    })
 
 def edit_post_content(request, post_id):
     if request.method == "POST":
@@ -46,6 +57,7 @@ def index(request):
     paginator = Paginator(posts, 4)  # Show 10 posts per page
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
+    
 
     return render(request, "network/index.html", {
         "posts": posts,

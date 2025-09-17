@@ -17,6 +17,7 @@ class Post(models.Model):
     @property
     def like_count(self):
         return self.likes.count()
+    
 
 class Followers(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followers")
