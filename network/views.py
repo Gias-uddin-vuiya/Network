@@ -55,7 +55,7 @@ def index(request):
     
     # display all posts
     posts = Post.objects.all().order_by("-timestamp").all()
-    paginator = Paginator(posts, 4)  # Show 10 posts per page
+    paginator = Paginator(posts, 10)  # Show 10 posts per page
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
     
