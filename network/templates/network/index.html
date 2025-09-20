@@ -38,15 +38,13 @@
                             {% endif %}
                             <span class="like-count">{{ post.like_count }}</span>
                         </div>
-                       
                         
                         <!--  Users should be able to click an “Edit” button or link on any of their own posts to edit that post. -->
                         {% if user.username == post.user.username %}    
                             <!-- edit post -->
                             <button class="btn btn-primary edit-content-btn" data-set="{{ post.id }}">
                                 Edit
-                            </button>
-                                
+                            </button>    
                             {% endif %}
                         <hr>
                     </div>
