@@ -14,6 +14,9 @@ class Post(models.Model):
     def __str__(self):
         return f"{self.user.username}: {self.content[:20]}..."
     
+    def is_liked_by(self, user):
+        return self.likes.filter(user=user).exists()
+
     @property
     def like_count(self):
         return self.likes.count()
@@ -40,6 +43,8 @@ class Reaction(models.Model):
 
     class Meta:
         unique_together = ('user', 'post')
+    # to show who liked which post
+    
     
     def __str__(self):
         return f"{self.user.username} liked post {self.post.id}"

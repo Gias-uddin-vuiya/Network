@@ -20,6 +20,7 @@ def toggle_like(request, post_id):
     if not created:
         like.delete()
     
+    
     return JsonResponse({
         "likes": post.like_count,
         "liked": created  # True if just liked, False if unliked
@@ -58,6 +59,14 @@ def index(request):
     paginator = Paginator(posts, 10)  # Show 10 posts per page
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
+
+    # post liked by users
+    if request.user.is_authenticated:
+        for post in posts:
+            post.liked_by_user = post.likes.filter(user=request.user).exists()
+    else:
+        for post in posts:
+            post.liked_by_user = False
     
 
     return render(request, "network/index.html", {
