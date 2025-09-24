@@ -3,6 +3,28 @@ body{
     box-sizing: border-box;
 }
 
+/* Start adding design to navbar */
+.w-25{
+    width: 25% !important;
+}
+
+.navbar-all-itemd{
+    width: 100%;
+}
+
+.navbar-all-itemd .nav-item{
+    width: 33.33%;
+    text-align: center;
+}
+
+.navbar-all-itemd .search-form {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    text-align: center;
+}
+
+
 .container{
     margin-top: 10px;
 }
@@ -21,3 +43,5 @@ body{
     color: #dc0f0f;
     cursor: pointer;
 }
+
+
