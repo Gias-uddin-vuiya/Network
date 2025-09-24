@@ -19,7 +19,7 @@
               <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' user.username %}"><strong>{{ user.username }}</strong></a>
+                        <!-- <a class="nav-link" href="{% url 'profile' user.username %}"><strong>{{ user.username }}</strong></a> -->
                     </li>
                 {% endif %}
                 <li class="nav-item">
@@ -30,7 +30,11 @@
                         <a class="nav-link" href="{% url 'following' %}">Following</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                        <!-- <a class="nav-link" href="{% url 'logout' %}">Log Out</a> -->
+                         <form class="form-inline" action="#" method="post">
+                            {% csrf_token %}
+                             <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+                         </form>
                     </li>
                 {% else %}
                     <li class="nav-item">
