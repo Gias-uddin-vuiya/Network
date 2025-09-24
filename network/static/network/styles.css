@@ -17,6 +17,10 @@ body{
     text-align: center;
 }
 
+.navbar-all-itemd .nav-item:active{
+    font-weight: 800;
+}
+
 .navbar-all-itemd .search-form {
     display: flex;
     justify-content: end;

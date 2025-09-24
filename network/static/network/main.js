@@ -1,6 +1,34 @@
 
 const editContentBtn = document.querySelectorAll(".edit-content-btn")
 const likeBtns = document.querySelectorAll(".like-btn")
+const navItem = document.querySelectorAll(".nav-item")
+
+
+
+
+// A variable to keep track of the currently active item
+let activeItem = null;
+
+navItem.forEach((item) => {
+  item.addEventListener("click", function(evt) {
+    evt.preventDefault();
+
+    // Reset the style of the previously active item, if one exists
+    if (activeItem) {
+      activeItem.style.color = ""; 
+      activeItem.style.fontWeight = ""; 
+    }
+
+    // Apply new styles to the currently clicked item
+    evt.target.style.color = "#000";
+    evt.target.style.fontWeight = "800";
+
+    // Update the activeItem variable to reference the newly clicked item
+    activeItem = evt.target;
+
+    console.log(evt.target);
+  });
+});
 
 editContentBtn.forEach((btn) => {
   btn.addEventListener('click', (evt) => {
