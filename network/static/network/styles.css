@@ -13,8 +13,8 @@ body{
 }
 
 .navbar-all-itemd .nav-item{
-    width: 33.33%;
-    text-align: center;
+    /* width: 10px; */
+    /* text-align: center; */
 }
 
 .navbar-all-itemd .nav-item:active{

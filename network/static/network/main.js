@@ -11,7 +11,7 @@ let activeItem = null;
 
 navItem.forEach((item) => {
   item.addEventListener("click", function(evt) {
-    evt.preventDefault();
+    // evt.preventDefault();
 
     // Reset the style of the previously active item, if one exists
     if (activeItem) {
