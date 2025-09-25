@@ -12,13 +12,6 @@ body{
     justify-content: space-around;
 }
 
-.main-page {
-    /* padding-right: 40px; */
-}
-
-.following-page {
-    /* padding-left: 40px; */
-}
 
 .navbar-all-itemd .search-form {
     display: flex;
