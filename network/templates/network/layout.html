@@ -10,54 +10,54 @@
         <link href="{% static 'network/styles.css' %}" rel="stylesheet">
     </head>
     <body>
+    <div class="container-fluid">
+    <div class="row">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-            <div class="container-fluid d-flex justify-content-between align-items-center">
-
-                <!-- Left: Logo -->
-                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
-                    <img src="{% static 'network/images/x-logo.png' %}" alt="logo" width="32" height="32">
-                </a>
-
-                <!-- Center: Tabs -->
-                <ul class="navbar-nav nav-ul flex-row mx-auto text-center">
-                    <li class="nav-item mx-2 main-page">
-                        <a class="nav-link fw-bold index-page" href="{% url 'index' %}">For you</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item mx-2 following-page">
-                        <a class="nav-link fw-bold following-page" href="{% url 'following' %}">Following</a>
-                    </li>
-                    {% endif %}
-                </ul>
-
-                <!-- Right: Search + Auth -->
-                <div class="d-flex align-items-center">
+        <!-- Left Sidebar -->
+        <aside class="col-2 col-md-3 col-lg-2 border-end p-3 left-sidebar">
+            <a href="{% url 'index' %}" class="d-flex align-items-center mb-4">
+                <img src="{% static 'network/images/x-logo.png' %}" alt="logo" width="32" height="32">
+            </a>
+            <ul class="nav flex-column">
                 {% if user.is_authenticated %}
-                    <form class="d-none d-md-block me-3">
-                        {% csrf_token %}
-                        <input class="form-control form-control-sm rounded-pill" type="search" placeholder="Search" aria-label="Search">
-                    </form>
-                    <a class="btn btn-outline-dark btn-sm rounded-pill" href="{% url 'logout' %}">Log out</a>
-                {% else %}
-                    <a class="btn btn-outline-dark btn-sm rounded-pill me-2" href="{% url 'login' %}">Log in</a>
-                    <a class="btn btn-dark btn-sm rounded-pill" href="{% url 'register' %}">Register</a>
+                    <li class="nav-item mb-2"><i class="fa-regular fa-house"></i> <a href="#">Home</a></li>
+                    <li class="nav-item mb-2"><i class="fa-solid fa-magnifying-glass"></i> <a href="#">Explore</a></li>
+                    <li class="nav-item mb-2"><i class="fa-regular fa-user"></i> <a href="#">Profile</a></li>
+                        
+                    {% else %}
+                    <li class="nav-item mb-2"><a href="{% url 'login' %}" class="nav-link">🔑 Login</a></li>
+                    <li class="nav-item mb-2"><a href="{% url 'register' %}" class="nav-link">📝 Register</a></li>
                 {% endif %}
-                </div>
+            </ul>
+        </aside>
+
+        <!-- Main Feed -->
+        <main class="col-8 col-md-6 col-lg-6 border-start top-bar border-end ">
+            <div class="d-flex justify-content-around border-bottom p-2 feed-tabs">
+                <a href="{% url 'index' %}" class="nav-link fw-bold {% if request.resolver_match.url_name == 'index' %}active{% endif %}">For You</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'following' %}" class="nav-link fw-bold {% if request.resolver_match.url_name == 'following' %}active{% endif %}">Following</a>
+                {% endif %}
             </div>
-        </nav>
 
-        
-        <div class="body">
-            {% block body %}
-            {% endblock %}
-        </div>
+            <div class="feed p-3">
+                {% block body %}{% endblock %}
+            </div>
+        </main>
 
-        <footer>
-            {% block footer %}
-                <p>&copy; 2024 Social Network</p>
-            {% endblock %}
-        </footer>
+        <!-- Right Sidebar -->
+        <aside class="col-2 col-md-3 col-lg-4 p-3 right-sidebar d-none d-md-block">
+            <form class="mb-3">
+                <input class="form-control rounded-pill" type="search" placeholder="Search">
+            </form>
+            <div class="p-3 mb-3 bg-light rounded">
+                <h6 class="fw-bold">What’s happening</h6>
+                <p class="mb-0 small">Trending #1</p>
+            </div>
+        </aside>
+
+    </div>
+    </div>
         
         <script src="{% static 'network/main.js' %}"></script>
     </body>

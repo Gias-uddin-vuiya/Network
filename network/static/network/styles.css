@@ -48,3 +48,17 @@ body{
 }
 
 
+.right-sidebar, .left-sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+
+.feed-tabs {
+    position: sticky;
+    top: 0;                  /* sticks to top of feed */
+    background-color: #fff;  /* prevent transparent overlap */
+    z-index: 1020;           /* stays above posts */
+}
