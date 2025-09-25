@@ -4,21 +4,13 @@ body{
 }
 
 /* Start adding design to navbar */
-.w-25{
-    width: 25% !important;
+
+.main-page {
+    padding-right: 40px;
 }
 
-.navbar-all-itemd{
-    width: 100%;
-}
-
-.navbar-all-itemd .nav-item{
-    /* width: 10px; */
-    /* text-align: center; */
-}
-
-.navbar-all-itemd .nav-item:active{
-    font-weight: 800;
+.following-page {
+    padding-left: 40px;
 }
 
 .navbar-all-itemd .search-form {
