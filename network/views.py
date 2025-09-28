@@ -132,9 +132,18 @@ def following(request):
     # get users that the current user is following
     following_users = Followers.objects.filter(follower=request.user).values_list('user', flat=True)
     posts = Post.objects.filter(user__in=following_users).order_by('-timestamp')
+
+     # post liked by users
+    if request.user.is_authenticated:
+        for post in posts:
+            post.liked_by_user = post.likes.filter(user=request.user).exists()
+    else:
+        for post in posts:
+            post.liked_by_user = False
+    
     
     return render(request, "network/following.html", {
-        "posts": posts
+        "following_users": posts
     })
 
 def login_view(request):

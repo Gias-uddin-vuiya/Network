@@ -2,18 +2,32 @@
 
 {% block body %}
 
-    <h2>Following</h2>
-    
     <hr>
     <div class="container">
         <h3>Your Feed</h3>
-        {% for post in posts %}
-            <div class="post">
-                <p><strong><a href="{% url 'profile' post.user.username %}">{{ post.user.username }}</a></strong> <em>{{ post.timestamp }}</em></p>
-                <p>{{ post.content }}</p>
-                <i class="fa-regular fa-heart"></i> <span>0</span>
-                <hr>
-            </div>
+        {% for post in following_users %}
+           <div class="post">
+                        <p>
+                            <strong>
+                                <a href="{% url 'profile' post.user.username %}">{{ post.user.username }}</a>
+                            </strong> 
+                            <em>{{ post.timestamp }}</em> 
+                                <!-- Ellipsis -->
+                                <span class="ellipsis">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </span>
+                            </p>
+                        <p  class="post-content">{{ post.content }}</p>
+
+                        <div class="like-container" data-post-id="{{ post.id }}">
+                            {% if user.is_authenticated and post.liked_by_user %}
+                                <i class="fa-solid fa-heart text-danger like-btn"></i>
+                            {% else %}
+                                <i class="fa-regular fa-heart like-btn"></i>
+                            {% endif %}
+                            <span class="like-count">{{ post.like_count }}</span>
+                        </div>
+                    </div>
         {% empty %}
             <p>No posts available from users you are following.</p>
         {% endfor %}
