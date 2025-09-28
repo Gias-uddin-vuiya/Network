@@ -73,6 +73,9 @@ def index(request):
         "posts": posts,
     })
 
+# explore page
+def explore(request):
+    return render(request, "network/explore.html")
 
 # user profile view
 def profile_view(request, username):
