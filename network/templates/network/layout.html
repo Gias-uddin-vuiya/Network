@@ -20,9 +20,9 @@
             </a>
             <ul class="nav flex-column">
                 {% if user.is_authenticated %}
-                    <li class="nav-item mb-2"><i class="fa-regular fa-house"></i> <a href="#">Home</a></li>
+                    <li class="nav-item mb-2"><i class="fa-regular fa-house"></i> <a href="{% url 'index' %}">Home</a></li>
                     <li class="nav-item mb-2"><i class="fa-solid fa-magnifying-glass"></i> <a href="#">Explore</a></li>
-                    <li class="nav-item mb-2"><i class="fa-regular fa-user"></i> <a href="#">Profile</a></li>
+                    <li class="nav-item mb-2"><i class="fa-regular fa-user"></i> <a href="{% url 'profile' request.user.username %}">Profile</a></li>
                         
                     {% else %}
                     <li class="nav-item mb-2"><a href="{% url 'login' %}" class="nav-link">🔑 Login</a></li>
