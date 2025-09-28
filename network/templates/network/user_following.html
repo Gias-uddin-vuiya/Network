@@ -1,0 +1,21 @@
+{% extends 'network/layout.html' %}
+
+{% block body %}
+<hr>
+<div class="container">
+  {% if user.is_authenticated %}
+    {% if followed_users %}
+      <h3>Users You Are Following</h3>
+      <ul>
+        {% for u in followed_users %}
+          <li>
+            <a href="{% url 'profile' u.username %}">{{ u.username }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>You are not following anyone yet.</p>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

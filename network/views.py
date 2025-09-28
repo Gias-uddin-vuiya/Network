@@ -143,8 +143,24 @@ def following(request):
     
     
     return render(request, "network/following.html", {
-        "following_users": posts
+        "posts": posts
     })
+
+def following_users(request, username):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    
+    profile_user = get_object_or_404(User, username=username)
+    # get users that the current user is following
+    user_followings = Followers.objects.filter(follower=profile_user).values_list('user', flat=True)
+    followed_users = User.objects.filter(id__in=user_followings)
+
+    
+    return render(request, "network/user_following.html", {
+        "profile_user": profile_user,
+        "followed_users": followed_users,
+    })
+
 
 def login_view(request):
     if request.method == "POST":
