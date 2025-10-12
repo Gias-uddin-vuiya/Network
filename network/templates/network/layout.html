@@ -15,12 +15,13 @@
     <div class="row">
 
         <!-- Left Sidebar -->
+        {% if user.is_authenticated %}
         <aside class="col-2 col-md-3 col-lg-2 border-end p-3 left-sidebar">
             <a href="{% url 'index' %}" class="d-flex align-items-center mb-4">
                 <img src="{% static 'network/images/x-logo.png' %}" alt="logo" width="32" height="32">
             </a>
             <ul class="nav flex-column">
-                {% if user.is_authenticated %}
+                
                     <li class="nav-item mb-2"><i class="fa-regular fa-house"></i> <a href="{% url 'index' %}">Home</a></li>
                     <li class="nav-item mb-2"><i class="fa-solid fa-magnifying-glass"></i> <a href="{% url 'explore' %}">Explore</a></li>
                     <li class="nav-item mb-2"><i class="fa-regular fa-user"></i> <a href="{% url 'profile' request.user.username %}">Profile</a></li>
@@ -40,28 +41,40 @@
                         </ul>
                     </li>
                         
-                    {% else %}
-                    <li class="nav-item mb-2"><a href="{% url 'login' %}" class="nav-link">🔑 Login</a></li>
-                    <li class="nav-item mb-2"><a href="{% url 'register' %}" class="nav-link">📝 Register</a></li>
-                {% endif %}
+                    
             </ul>
         </aside>
+        {% else %}
+            <!-- <div class="box">
+                <li class="nav-item mb-2"><a href="{% url 'login' %}" class="nav-link">🔑 Login</a></li>
+                <li class="nav-item mb-2"><a href="{% url 'register' %}" class="nav-link">📝 Register</a></li>
+            </div>  -->
+        {% endif %}
 
         <!-- Main Feed -->
         <main class="col-8 col-md-6 col-lg-6 border-start top-bar border-end ">
-            <div class="d-flex justify-content-around border-bottom p-2 feed-tabs">
+
+            {% if user.is_authenticated %}
+            <div class="d-flex justify-content-around border-bottom p-2 feed-tabs"> 
                 <a href="{% url 'index' %}" class="nav-link fw-bold {% if request.resolver_match.url_name == 'index' %}active{% endif %}">For You</a>
-                {% if user.is_authenticated %}
-                <a href="{% url 'following' %}" class="nav-link fw-bold {% if request.resolver_match.url_name == 'following' %}active{% endif %}">Following</a>
-                {% endif %}
+                <a href="{% url 'following' %}" class="nav-link fw-bold {% if request.resolver_match.url_name == 'following' %}active{% endif %}">Following</a>   
             </div>
 
             <div class="feed p-3">
                 {% block body %}{% endblock %}
             </div>
+            {% else %}
+                <div class="not-loggedin text-center p-5">
+                    <h2>Welcome to Social Network X</h2>
+                    <p class="lead">Join today to connect with friends and the world around you.</p>
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-lg m-2">Sign Up</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg m-2">Log In</a>
+                </div>
+            {% endif %}
         </main>
 
         <!-- Right Sidebar -->
+        {% if user.is_authenticated %}
         <aside class="col-2 col-md-3 col-lg-4 p-3 right-sidebar d-none d-md-block">
             <form class="mb-3">
                 <input class="form-control rounded-pill" type="search" placeholder="Search">
@@ -71,6 +84,7 @@
                 <p class="mb-0 small">Trending #1</p>
             </div>
         </aside>
+        {% endif %}
 
     </div>
     </div>
