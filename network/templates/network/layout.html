@@ -45,10 +45,14 @@
             </ul>
         </aside>
         {% else %}
-            <!-- <div class="box">
-                <li class="nav-item mb-2"><a href="{% url 'login' %}" class="nav-link">🔑 Login</a></li>
-                <li class="nav-item mb-2"><a href="{% url 'register' %}" class="nav-link">📝 Register</a></li>
-            </div>  -->
+            <aside>
+                <div class="not-loggedin  text-center p-5 ">
+                    <h2>Welcome to Social Network X</h2>
+                    <p class="lead">Join today to connect with friends and the world around you.</p>
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-lg m-2">Sign Up</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg m-2">Log In</a>
+                </div> 
+            </aside>
         {% endif %}
 
         <!-- Main Feed -->
@@ -59,18 +63,13 @@
                 <a href="{% url 'index' %}" class="nav-link fw-bold {% if request.resolver_match.url_name == 'index' %}active{% endif %}">For You</a>
                 <a href="{% url 'following' %}" class="nav-link fw-bold {% if request.resolver_match.url_name == 'following' %}active{% endif %}">Following</a>   
             </div>
+            {% endif %}
 
             <div class="feed p-3">
                 {% block body %}{% endblock %}
             </div>
-            {% else %}
-                <div class="not-loggedin text-center p-5">
-                    <h2>Welcome to Social Network X</h2>
-                    <p class="lead">Join today to connect with friends and the world around you.</p>
-                    <a href="{% url 'register' %}" class="btn btn-primary btn-lg m-2">Sign Up</a>
-                    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg m-2">Log In</a>
-                </div>
-            {% endif %}
+            
+            
         </main>
 
         <!-- Right Sidebar -->

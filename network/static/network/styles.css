@@ -55,3 +55,11 @@ body{
     background-color: #fff;  /* prevent transparent overlap */
     z-index: 1020;           /* stays above posts */
 }
+
+/* logout page desing */
+.not-loggedin {
+    width: 100%;
+}
+.not-loggedin h2 {
+    font-weight: 800;
+}
